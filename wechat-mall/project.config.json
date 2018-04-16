@@ -1,0 +1,15 @@
+{
+	"description": "A WePY project",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxaca46bf2c847a854",
+	"projectname": "wechat-mal",
+	"miniprogramRoot": "./dist",
+	"condition": {}
+}

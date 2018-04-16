@@ -1,0 +1,113 @@
+<style lang="less">
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index',
+      'pages/classify',
+      'pages/shopping_car',
+      'pages/mine'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#292929',
+      navigationBarTitleText: '环球小镇',
+      navigationBarTextStyle: 'white',
+      enablePullDownRefresh: true
+    },
+    tabBar: {
+      position: 'bottom',
+      color: '#6e6d6b',
+      selectedColor: '#f9f027',
+      backgroundColor: '#292929',
+      list: [
+        {
+          pagePath: 'pages/index',
+          text: '极速免税',
+          iconPath: 'image/footer-icon-01.png',
+          selectedIconPath: 'image/footer-icon-01-active.png'
+        },
+        {
+          pagePath: 'pages/classify',
+          text: '分类',
+          iconPath: 'image/footer-icon-02.png',
+          selectedIconPath: 'image/footer-icon-02-active.png'
+        },
+        {
+          pagePath: 'pages/shopping_car',
+          text: '购物车',
+          iconPath: 'image/footer-icon-03.png',
+          selectedIconPath: 'image/footer-icon-03-active.png'
+        },
+        {
+          pagePath: 'pages/mine',
+          text: '我的',
+          iconPath: 'image/footer-icon-04.png',
+          selectedIconPath: 'image/footer-icon-04-active.png'
+        }
+      ]
+    }
+  }
+
+  globalData = {
+    userInfo: null
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+  }
+
+  onLaunch() {
+    this.testAsync()
+    console.log('launching>>>>')
+  }
+
+  onShow() {
+    console.log('showing^')
+  }
+
+  customFunction() {
+    console.log('customing^^^')
+  }
+
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+  }
+
+  getUserInfo(cb) {
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    wepy.getUserInfo({
+      success (res) {
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      }
+    })
+  }
+}
+</script>

@@ -1,0 +1,64 @@
+<template>
+  <view class="container">
+    <swiper class="swiper_box" autoplay="{{isAutoPlay}}">
+      <block wx:for="{{swiperList}}" wx:key="{{id}}">
+        <swiper-item>
+          <image src="{{item.picurl}}">
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</template>
+
+<style lang="less">
+.container {
+    background-color: #F2f2f2;
+}
+.swiper_box {
+  width: 100%;
+}
+swiper-item image {
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+</style>
+
+<script>
+  import wepy from 'wepy'
+  import testMixin from '../mixins/test'
+
+  export default class Index extends wepy.page {
+    config = {
+      // navigationBarTitleText: '环球小镇'
+    }
+    components = {
+    }
+
+    mixins = [testMixin]
+
+    data = {
+      swiperList: [],
+      isAutoPlay: true
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+    onLoad () {
+      wepy.request({
+        url: 'http://huanqiuxiaozhen.com/wemall/slider/list',
+        success: ({data}) => {
+          console.log(data)
+          this.swiperList = data
+          this.$apply()
+        }
+      })
+    }
+  }
+</script>
