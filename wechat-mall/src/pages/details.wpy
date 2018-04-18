@@ -11,7 +11,7 @@
   import wepy from 'wepy'
   import indexMixin from '../mixins/index'
 
-  export default class Mine extends wepy.page {
+  export default class Details extends wepy.page {
     config = {
       // navigationBarTitleText: '环球小镇'
     }
