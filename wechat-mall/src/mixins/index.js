@@ -22,4 +22,13 @@ export default class indexMixin extends wepy.mixin {
   async fetchIndexDiscovery () {
     return await wepy.request(urls.indexDiscovery)
   }
+  async fetchBrand (id) {
+    return await wepy.request(`${urls.indexBrand}?id=${+id}`)
+  }
+  async fetchIndexList (brand, typeid) {
+    return await wepy.request(`${urls.indexList}?brand=${brand}&typeid=${typeid}`)
+  }
+  async fetchIndexDetail (id) {
+    return await wepy.request(`${urls.indexDetails}?id=${+id}`)
+  }
 }

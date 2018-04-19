@@ -1,0 +1,112 @@
+<template>
+  <view class="container">
+    <block wx:for="{{list}}" wx:key="{{id}}">
+        <navigator url="details?id={{item.id}}">
+        <view class="brand_item">
+            
+                <image src="{{item.goodspics}}" class="pic"></image>
+                <view class="right_cont">
+                    <text class="country">{{item.country}}直采 {{item.bigname}}发货</text>
+                    <text class="name">{{item.title}}</text>
+                    <view class="price">
+                        <text class="ourprice">￥{{item.ourprice}}.00</text>
+                        <text class="discount">8折</text>
+                        <text class="marketprice">{{item.marketprice}}.00</text>
+                    </view>
+                </view>
+            
+        </view>
+        </navigator>
+    </block>
+  </view>
+</template>
+
+<style lang="less">
+.container .brand_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+}
+.container .brand_item .pic{
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+.right_cont{
+    flex: 1;
+    padding-right: 10px;
+}
+.right_cont .country{
+    display: block;
+    color: #939393;
+}
+.right_cont .name{
+    margin: 10px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    color: #333;
+}
+.right_cont .ourprice{
+    color: #f16236;
+    font-weight: bold;
+}
+.right_cont .discount{
+    height: 16px;
+    line-height: 16px;
+    margin: 0 10px;
+    padding: 1px 6px 1px 10px;
+    background: url(http://www.huanqiuxiaozhen.com/assets/images/discount-bg.png) no-repeat center;
+    background-size: cover;
+    color: #fff;
+    font-size: 12px;
+}
+.right_cont .marketprice{
+    text-decoration: line-through;
+    color: #939393;
+}
+</style>
+
+<script>
+  import wepy from 'wepy'
+  import indexMixin from '../mixins/index'
+
+  export default class List extends wepy.page {
+    config = {
+      // navigationBarTitleText: '环球小镇'
+    }
+    components = {
+    }
+
+    mixins = [indexMixin]
+
+    data = {
+      list: []
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+    onLoad (option) {
+      this.fetchIndexList(option.brand, option.typeid)
+      .then(({data}) => {
+        if (+data.code) {
+          throw new Error(data.msg)
+        } else {
+          this.list = data.data
+          this.$apply()
+        }
+      })
+    }
+  }
+</script>

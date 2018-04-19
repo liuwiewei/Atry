@@ -13,7 +13,8 @@ export default class extends wepy.app {
       'pages/shopping_car',
       'pages/mine',
       'pages/brand',
-      'pages/details'
+      'pages/details',
+      'pages/list'
     ],
     window: {
       backgroundTextStyle: 'dark',
