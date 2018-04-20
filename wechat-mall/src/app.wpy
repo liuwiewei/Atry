@@ -4,6 +4,7 @@
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
+import Promise from 'promise-polyfill'
 
 export default class extends wepy.app {
   config = {
@@ -91,17 +92,17 @@ export default class extends wepy.app {
     console.log(data)
   }
 
-  getUserInfo(cb) {
-    const that = this
+  async getUserInfos () {
     if (this.globalData.userInfo) {
       return this.globalData.userInfo
     }
-    wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
-      }
-    })
+    try {
+      const result = await wepy.getUserInfo()
+      this.globalData.userInfo = result.userInfo
+      return result
+    } catch (e) {
+      throw new Error(`获取用户信息错误信息${e}`)
+    }
   }
 }
 </script>

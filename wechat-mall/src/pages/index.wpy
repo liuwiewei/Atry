@@ -94,7 +94,7 @@
       // 主题馆
       this.fetchIndexTheme()
       .then(({data}) => {
-        if (data.code) {
+        if (+data.code) {
           this.loadingHidden = false
           throw new Error(data.msg)
         } else {
