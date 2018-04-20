@@ -71,6 +71,10 @@ export default class extends wepy.app {
 
   onLaunch() {
     this.testAsync()
+    this.login()
+        .then(data => {
+          console.log(data)
+        })
   }
 
   onShow() {
@@ -103,6 +107,9 @@ export default class extends wepy.app {
     } catch (e) {
       throw new Error(`获取用户信息错误信息${e}`)
     }
+  }
+  async login () {
+    return await wepy.login()
   }
 }
 </script>
