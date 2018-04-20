@@ -5,18 +5,21 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
     <view class="info_list">
-      <block wx:for="{{userListInfo}}">
-          <view class="weui_cell">
+      <!-- <block wx:for="{{userListInfo}}"> -->
+          <!-- <view class="weui_cell">
               <view class="weui_cell_hd"><image src="{{item.icon}}"/></view>
               <view class="weui_cell_bd">
                   <view class="weui_cell_bd_p"> {{item.text}} </view>
               </view>
               <view wx:if="{{item.isunread}}" class="badge">{{item.unreadNum}}</view>
               <view class="with_arrow"></view>
-          </view>
-      </block>
-    </view>
-    <view>
+          </view> -->
+          <!-- <repeat for="{{userListInfo}}" key="index" index="index" item="item"> -->
+            <userinfolist :item="userListInfo[0]" :asyncData.sync="asyncData"></userinfolist>
+            <view>外部数据{{asyncData}}</view>
+            <button bindtap="outerAdd">外部调用</button>
+          <!-- </repeat> -->
+      <!-- </block> -->
     </view>
   </view>
 </template>
@@ -24,18 +27,21 @@
 <script>
   import wepy from 'wepy'
   import indexMixin from '../mixins/index'
+  import UserInfoList from '../components/user_info_list'
 
   export default class Mine extends wepy.page {
     config = {
       // navigationBarTitleText: '环球小镇'
     }
     components = {
+      userinfolist: UserInfoList
     }
 
     mixins = [indexMixin]
 
     data = {
       userInfo: null,
+      asyncData: 0,
       userListInfo: [
         {
           icon: '../image/iconfont-dingdan.png',
@@ -74,6 +80,10 @@
     }
 
     methods = {
+      outerAdd () {
+        this.asyncData += 1
+        this.$apply()
+      }
     }
 
     events = {
@@ -83,7 +93,6 @@
           .then(data => {
             this.userInfo = data.userInfo
             this.$apply()
-            console.log(data.userInfo)
           })
     }
   }
