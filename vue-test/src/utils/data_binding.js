@@ -1,4 +1,5 @@
 
+// https://www.cnblogs.com/libin-1/p/6893712.html (参考资料地址)
 const defineReactive = (data, key, val) => {
   observer(val)
   const dep = new Dep()
