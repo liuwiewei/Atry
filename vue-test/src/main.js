@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import loading from './utils/loading'
 import './utils/watcher'
+import './utils/data_binding'
 
 Vue.config.productionTip = false
 

@@ -37,9 +37,15 @@ var ee = new Event()
 ee.listen('es', size => {
   console.log('尺码是' + size)
 })
+ee.listen('es', () => {
+  console.log('尺码获取完毕')
+})
 ee.listen('ew', count => {
   console.log('数量是' + count)
 })
-ee.remove('es')
-ee.trigger('es', 20)
-ee.trigger('ew', 10)
+// ee.remove('ew')
+// ee.trigger('es', 20)
+// ee.trigger('ew', 10)
+// setTimeout(() => {
+//   ee.trigger('ew', 20)
+// }, 2000)
